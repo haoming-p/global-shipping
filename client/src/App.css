@@ -1,1 +1,6 @@
 @import "tailwindcss";
+
+.leaflet-interactive:focus {
+  outline: none;
+  box-shadow: none;
+}

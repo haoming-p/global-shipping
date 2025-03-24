@@ -7,7 +7,7 @@ import "./App.css";
 function App() {
   // State
   const [mapCenter, setMapCenter] = useState([20.0, 120.0]);
-  const [mapZoom, setMapZoom] = useState(3);
+  const [mapZoom, setMapZoom] = useState(2);
   const [focusedRisk, setFocusedRisk] = useState(null);
   const [showDetailView, setShowDetailView] = useState(false);
   const [currentDate] = useState(
@@ -79,7 +79,7 @@ function App() {
   const handleRiskFocus = (risk) => {
     setFocusedRisk(risk.id);
     setMapCenter(risk.coordinates);
-    setMapZoom(5); // Zoom in a bit when focusing on a risk
+    setMapZoom(4); // 
   };
 
   // Handle opening detail view
@@ -206,11 +206,11 @@ function App() {
             keyRisks={keyRisks}
             onLocationClick={(location) => {
               console.log("Location clicked in MapView:", location);
-
-              // Check if this is a key risk location with a detail page
-              if (location.isKeyRisk && location.keyRiskId === "taiwan") {
-                console.log("Opening Taiwan detail view from map click");
-                openDetailView("taiwan");
+              if (location.isKeyRisk) {
+                const clickedRisk = keyRisks.find((r) => r.id === location.keyRiskId);
+                if (!clickedRisk) return;
+                // Expand the card
+                handleRiskFocus(clickedRisk);
               }
             }}
           />
