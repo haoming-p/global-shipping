@@ -110,7 +110,7 @@ function App() {
       {/* Header */}
       <header className="bg-blue-800 text-white p-4">
         <h1 className="text-2xl font-bold mb-4">
-          Global Maritime Risk Analysis Dashboard
+          Global Maritime Risk Dashboard Demo
         </h1>
         <p className="text-sm">Last updated: {currentDate}</p>
       </header>
