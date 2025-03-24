@@ -679,7 +679,7 @@ const MapView = ({
             {keyRisks.find((r) => r.id === focusedRisk)?.name} Impact
           </h3>
           <div className="text-xs">
-            Showing {activeRoutes.length} affected shipping routes
+            Showing {activeRoutes.length} affected shipping corridors
           </div>
         </div>
       )}
