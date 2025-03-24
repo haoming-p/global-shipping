@@ -79,7 +79,7 @@ function App() {
   const handleRiskFocus = (risk) => {
     setFocusedRisk(risk.id);
     setMapCenter(risk.coordinates);
-    setMapZoom(4); // 
+    setMapZoom(4); //
   };
 
   // Handle opening detail view
@@ -119,7 +119,14 @@ function App() {
       <div className="flex flex-1 overflow-hidden">
         {/* Sidebar */}
         <div className="w-64 bg-gray-100 p-4 overflow-y-auto">
-          <h2 className="text-lg font-semibold mb-4">Key Risk Areas</h2>
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-lg font-semibold">Key Risk Areas</h2>
+            <button
+              onClick={resetView}
+              className="py-1 px-2 bg-gray-200 text-gray-700 text-sm rounded border border-gray-300 hover:bg-gray-300 transition-colors cursor-pointer">
+              Reset
+            </button>
+          </div>
 
           {/* Key risk */}
           <div className="space-y-3 mb-6">
@@ -183,16 +190,9 @@ function App() {
             ))}
           </div>
 
-          {/* Reset */}
-          <button
-            onClick={resetView}
-            className="w-full py-2 px-3 bg-gray-200 text-gray-700 rounded border border-gray-300 hover:bg-gray-300 transition-colors cursor-pointer">
-            Reset Map View
-          </button>
-
           {/* Prototype */}
           <hr className="my-4 border-gray-300" />
-          <div className="mt-4 text-xs text-gray-500 text-center">
+          <div className="mt-4 text-xs text-gray-500">
             Prototype - For demonstration purposes
           </div>
         </div>
@@ -207,7 +207,9 @@ function App() {
             onLocationClick={(location) => {
               console.log("Location clicked in MapView:", location);
               if (location.isKeyRisk) {
-                const clickedRisk = keyRisks.find((r) => r.id === location.keyRiskId);
+                const clickedRisk = keyRisks.find(
+                  (r) => r.id === location.keyRiskId
+                );
                 if (!clickedRisk) return;
                 // Expand the card
                 handleRiskFocus(clickedRisk);
