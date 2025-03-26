@@ -10,6 +10,7 @@ function App() {
   const [mapZoom, setMapZoom] = useState(2);
   const [focusedRisk, setFocusedRisk] = useState(null);
   const [showDetailView, setShowDetailView] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const [currentDate] = useState(
     new Date().toLocaleDateString("en-US", {
       year: "numeric",
@@ -17,6 +18,33 @@ function App() {
       day: "numeric",
     })
   );
+
+  // Define regular locations (copied from MapView)
+  const regularLocations = [
+    // Major ports
+    { name: "Singapore", lat: 1.3521, lon: 103.8198, risk: 45, size: "major" },
+    { name: "Rotterdam", lat: 51.9244, lon: 4.4777, risk: 32, size: "major" },
+    { name: "Panama Canal", lat: 9.08, lon: -79.68 + 360, risk: 34, size: "major" },
+    { name: "Strait of Malacca", lat: 2.5, lon: 101.0, risk: 39, size: "major" },
+    { name: "Los Angeles", lat: 33.7701, lon: -118.1937 + 360, risk: 41, size: "major" },
+    { name: "Shanghai", lat: 31.2304, lon: 121.4737, risk: 36, size: "major" },
+
+    // Minor ports
+    { name: "Tokyo Bay", lat: 35.509, lon: 139.7842, risk: 34, size: "minor" },
+    { name: "Hong Kong", lat: 22.3193, lon: 114.1694, risk: 22, size: "minor" },
+    { name: "Busan", lat: 35.1333, lon: 129.05, risk: 38, size: "minor" },
+    { name: "Sydney", lat: -33.8523, lon: 151.1782, risk: 22, size: "minor" },
+    { name: "New York", lat: 40.6643, lon: -74.097 + 360, risk: 45, size: "minor" },
+    { name: "Mumbai", lat: 18.9548, lon: 72.8288, risk: 47, size: "minor" },
+    { name: "Dubai", lat: 25.2048, lon: 55.2708, risk: 42, size: "minor" },
+    { name: "Jakarta", lat: -6.2088, lon: 106.8456, risk: 33, size: "minor" },
+    { name: "Manila", lat: 14.5995, lon: 120.9842, risk: 39, size: "minor" },
+    { name: "Vancouver", lat: 49.2827, lon: -123.1207 + 360, risk: 28, size: "minor" },
+    { name: "Santos", lat: -23.9608, lon: -46.3222 + 360, risk: 37, size: "minor" },
+    { name: "Lagos", lat: 6.455, lon: 3.3841, risk: 21, size: "minor" },
+    { name: "Piraeus", lat: 37.9422, lon: 23.6483, risk: 31, size: "minor" },
+    { name: "Melbourne", lat: -37.8136, lon: 144.9631, risk: 24, size: "minor" },
+  ];
 
   // Key risk data
   const keyRisks = [
@@ -68,6 +96,11 @@ function App() {
     },
   ];
 
+  // Filter regular locations based on search query
+  const filteredLocations = regularLocations.filter(location =>
+    location.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   // Reset map view
   const resetView = () => {
     setMapCenter([20.0, 120.0]);
@@ -79,7 +112,14 @@ function App() {
   const handleRiskFocus = (risk) => {
     setFocusedRisk(risk.id);
     setMapCenter(risk.coordinates);
-    setMapZoom(4); //
+    setMapZoom(4);
+  };
+
+  // Handle location click from the search results
+  const handleLocationClick = (location) => {
+    setMapCenter([location.lat, location.lon]);
+    setMapZoom(5);
+    setFocusedRisk(null); // Clear any focused risk
   };
 
   // Handle opening detail view
@@ -154,7 +194,7 @@ function App() {
                   Risk Score: {risk.score}/100
                 </div>
                 <div className="mt-1 text-sm text-gray-500">
-                  Shipping Corridor Impact : {risk.affectedRoutes}
+                  Affected trade lanes : {risk.affectedRoutes}
                 </div>
 
                 {focusedRisk === risk.id && (
@@ -188,6 +228,60 @@ function App() {
                 )}
               </div>
             ))}
+          </div>
+
+          {/* All Areas with Search Bar - NEW SECTION */}
+          <div className="mb-6">
+            <h2 className="text-lg font-semibold mb-3">All Areas</h2>
+            
+            {/* Search input */}
+            <div className="relative mb-3">
+              <input
+                type="text"
+                placeholder="Search locations..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-2 top-2 text-gray-400 hover:text-gray-600">
+                  ✕
+                </button>
+              )}
+            </div>
+
+            {/* Search results */}
+            <div className="max-h-48 overflow-y-auto">
+              {filteredLocations.length > 0 ? (
+                filteredLocations.map((location, index) => (
+                  <div
+                    key={`loc-${index}`}
+                    onClick={() => handleLocationClick(location)}
+                    className="p-2.5 bg-white mb-2 rounded-md cursor-pointer hover:bg-gray-50 border border-gray-200">
+                    <div className="flex justify-between items-center">
+                      <div className="font-medium text-sm">{location.name}</div>
+                      <div 
+                        className={`px-2 py-0.5 text-xs rounded-full ${
+                          location.risk >= 50
+                            ? "bg-yellow-100 text-yellow-800"
+                            : "bg-green-100 text-green-800"
+                        }`}>
+                        {location.risk}/100
+                      </div>
+                    </div>
+                    <div className="text-xs text-gray-500 mt-1">
+                      {location.size === "major" ? "Major Port" : "Regional Port"}
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div className="p-2 text-center text-gray-500 text-sm">
+                  {searchQuery ? "No locations found" : "Type to search locations"}
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Prototype */}

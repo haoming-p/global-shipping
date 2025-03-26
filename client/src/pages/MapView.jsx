@@ -31,7 +31,7 @@ const MapView = ({
   const shippingRoutes = {
     taiwan: [
       {
-        name: "East Asia-US Route",
+        name: "Transpacific Eastbound (TPE) Lane",
         path: [
           [24.25, 119.5], // Taiwan Strait
           [22.3193, 124.1694], // East of Taiwan
@@ -48,7 +48,7 @@ const MapView = ({
         relatedPoints: ["Taiwan Strait", "Tokyo Bay", "Los Angeles"],
       },
       {
-        name: "Taiwan-Europe Route",
+        name: "Far East-Europe (FEE) Lane",
         path: [
           [24.25, 119.5], // Taiwan Strait
           [21.0, 118.0], // South of Taiwan
@@ -102,7 +102,7 @@ const MapView = ({
         ],
       },
       {
-        name: "Taiwan-Middle East Route",
+        name: "Asia-Gulf (AG) Lane",
         path: [
           [24.25, 119.5], // Taiwan Strait
           [21.0, 118.0], // South of Taiwan
@@ -130,7 +130,7 @@ const MapView = ({
         relatedPoints: ["Taiwan Strait", "Singapore", "Strait of Hormuz"],
       },
       {
-        name: "Taiwan-Australia Route",
+        name: "North Asia-Oceania (NAO) Lane",
         path: [
           [24.25, 119.5], // Taiwan Strait
           [21.0, 118.0], // South of Taiwan
@@ -679,7 +679,7 @@ const MapView = ({
             {keyRisks.find((r) => r.id === focusedRisk)?.name} Impact
           </h3>
           <div className="text-xs">
-            Showing {activeRoutes.length} affected shipping corridors
+            {activeRoutes.length} affected major trade lanes
           </div>
         </div>
       )}

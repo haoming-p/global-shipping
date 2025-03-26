@@ -10,28 +10,28 @@ const ShippingCorridorImpact = ({
     taiwan: [
       {
         id: 'transpacific',
-        name: 'Trans-Pacific Corridor',
+        name: 'TPE', //Transpacific Eastbound (TPE) Lane
         affectedRoutes: 42,
         capacity: '32% of East Asia traffic',
         color: '#ff3333',
       },
       {
         id: 'asiaeurope',
-        name: 'Asia-Europe Corridor',
+        name: 'FEE', //Far East-Europe (FEE) Lane
         affectedRoutes: 37,
         capacity: '41% of Asia-Europe trade',
         color: '#ff6600',
       },
       {
         id: 'intraasia',
-        name: 'Intra-Asia Corridor',
+        name: 'AG', //Asia-Gulf (AG) Lane
         affectedRoutes: 68,
-        capacity: '45% of regional shipping',
+        capacity: '35% of oil imports',
         color: '#ffcc00',
       },
       {
         id: 'asiaoceania',
-        name: 'Asia-Oceania Corridor',
+        name: 'NAO', //North Asia-Oceania (NAO) Lane'
         affectedRoutes: 18,
         capacity: '22% of Pacific shipping',
         color: '#33cc33',
@@ -58,7 +58,7 @@ const ShippingCorridorImpact = ({
   return (
     <div className="flex flex-col h-full">
       <div className="flex justify-between mb-2">
-        <h3 className="font-semibold text-lg">Shipping Corridor Impact</h3>
+        <h3 className="font-semibold text-lg">Main Shipping Lanes Impact</h3>
         <button
           onClick={onDownloadRoutes}
           className="bg-blue-600 hover:bg-blue-700 text-white text-sm py-1 px-3 rounded flex items-center"
@@ -95,8 +95,8 @@ const ShippingCorridorImpact = ({
           <table className="w-full text-sm border-collapse">
             <thead>
               <tr>
-                <th className="text-left p-1 border-b">Corridor</th>
-                <th className="text-center p-1 border-b">Routes</th>
+                <th className="text-left p-1 border-b">Lanes</th>
+                <th className="text-left p-1 border-b">Routes</th>
                 <th className="text-left p-1 border-b">Capacity</th>
               </tr>
             </thead>

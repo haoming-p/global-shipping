@@ -22,6 +22,11 @@ const AnalysisWorkflowStep1 = ({ onDataChange }) => {
           name: "Satellite Intelligence",
           description: "Satellite Imagery Analysis (8 files)",
           selected: true
+        },
+        {
+          name: "Regulatory Alerts",
+          description: "Regulatory Change Notifications (22 files)",
+          selected: true
         }
       ]
     },
@@ -44,6 +49,16 @@ const AnalysisWorkflowStep1 = ({ onDataChange }) => {
           name: "Supply Chain Data",
           description: "Supply Chain Logistics Tracking (33 files)",
           selected: true
+        },
+        {
+          name: "Port Operations Status",
+          description: "Real-time Port Operational Metrics (18 files)",
+          selected: true
+        },
+        {
+          name: "Labor Relations Monitoring",
+          description: "Labor Dispute & Strike Alerts (12 files)",
+          selected: true
         }
       ]
     },
@@ -60,6 +75,33 @@ const AnalysisWorkflowStep1 = ({ onDataChange }) => {
         {
           name: "Maritime Safety",
           description: "Maritime Safety Databases (21 files)",
+          selected: true
+        },
+        {
+          name: "Environmental Hazards",
+          description: "Ecological Disruption Reports (9 files)",
+          selected: true
+        }
+      ]
+    },
+    {
+      name: "Cybersecurity & Infrastructure",
+      description: "Digital threats, system vulnerabilities, and critical infrastructure status",
+      selected: true,
+      subcategories: [
+        {
+          name: "Cyber Threat Intelligence",
+          description: "Real-time Cyber Attack Monitoring (27 files)",
+          selected: true
+        },
+        {
+          name: "Port IT Systems Status",
+          description: "Port Technology Infrastructure Monitoring (15 files)",
+          selected: true
+        },
+        {
+          name: "Fuel & Energy Availability",
+          description: "Regional Bunkering & Energy Reports (24 files)",
           selected: true
         }
       ]
